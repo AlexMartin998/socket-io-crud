@@ -5,13 +5,16 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon ./src/server.js --exec babel-node",
-    "build": "rimraf ./dist && babel ./src -d ./dist",
+    "build": "rimraf ./dist && babel ./src -d ./dist --copy-files",
+    "build-ncp": "rimraf ./dist && babel ./src -d ./dist && ncp ./src/public ./dist/public",
     "start": "node ./dist/server.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose --detectOpenHandles --silent ./tests/*.spec.js",
     "test-watch": "npm run test -- --watch",
+
     "test-mocha": "mocha --require @babel/register ./tests/*.test.js",
     "build-mocha": "rimraf ./dist && babel ./src -d ./dist/src && babel ./tests -d ./dist/tests",
     "test-mocha-manual": "npm run build-mocha && mocha ./dist/tests/*.test.js",
+
     "basic-setup": "npm i express cors dotenv express-validator bcryptjs mongoose jsonwebtoken helmet memory-cache morgan compression && npm i -D @babel/cli @babel/core @babel/node @babel/plugin-transform-runtime @babel/preset-env ncp nodemon rimraf"
   },
   "keywords": [],
